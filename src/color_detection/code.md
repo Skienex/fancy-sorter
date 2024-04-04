@@ -1,5 +1,5 @@
 # Farberkennung
-Hier ist der Code für die Farberkennung:
+Hier ist der Code für die Farberkennung(Arduino Ide):
 ```c
 #define S0  26
 #define S1  25
