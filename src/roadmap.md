@@ -12,3 +12,6 @@ EIn Beispiel wäre eine Müllsortierungsanlage, welche erkennt, welche Art von M
 
 ## Meilensteine
 - [[1.04.2024] Programm zur Erkennung von bestimmten Farben, welches die dominante Farbe(r, g, b) dann mithilfe von LEDs ausgibt](color_detection/color_detection.md)
+
+## *Kleines* Nebenprojekt
+Dieses Projekt würde sich darauf fokussieren, bei dem Müllcontainer, zu erkennen, ob Kartons gefaltet sind.
