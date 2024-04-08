@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Code - Liquip Dokumentation</title>
+        <title>Erkennen von gefalteten Kartons - Liquip Dokumentation</title>
 
 
         <!-- Custom HTML head -->
@@ -12,21 +12,21 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="icon" href="../favicon.svg">
-        <link rel="shortcut icon" href="../favicon.png">
-        <link rel="stylesheet" href="../css/variables.css">
-        <link rel="stylesheet" href="../css/general.css">
-        <link rel="stylesheet" href="../css/chrome.css">
-        <link rel="stylesheet" href="../css/print.css" media="print">
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
 
         <!-- Fonts -->
-        <link rel="stylesheet" href="../FontAwesome/css/font-awesome.css">
-        <link rel="stylesheet" href="../fonts/fonts.css">
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
 
         <!-- Highlight.js Stylesheets -->
-        <link rel="stylesheet" href="../highlight.css">
-        <link rel="stylesheet" href="../tomorrow-night.css">
-        <link rel="stylesheet" href="../ayu-highlight.css">
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
 
@@ -37,7 +37,7 @@
     <div id="body-container">
         <!-- Provide site root to javascript -->
         <script>
-            var path_to_root = "../";
+            var path_to_root = "";
             var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
         </script>
 
@@ -90,7 +90,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../roadmap.html">Roadmap</a></li><li class="chapter-item expanded affix "><a href="../folded_cartoon.html">Erkennen von gefalteten Kartons</a></li><li class="chapter-item expanded "><a href="../color_detection/color_detection.html"><strong aria-hidden="true">1.</strong> Farberkennung</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../color_detection/code.html" class="active"><strong aria-hidden="true">1.1.</strong> Code</a></li></ol></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="roadmap.html">Roadmap</a></li><li class="chapter-item expanded affix "><a href="folded_cartoon.html" class="active">Erkennen von gefalteten Kartons</a></li><li class="chapter-item expanded "><a href="color_detection/color_detection.html"><strong aria-hidden="true">1.</strong> Farberkennung</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="color_detection/code.html"><strong aria-hidden="true">1.1.</strong> Code</a></li></ol></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle">
                 <div class="sidebar-resize-indicator"></div>
@@ -146,7 +146,7 @@
                     <h1 class="menu-title">Liquip Dokumentation</h1>
 
                     <div class="right-buttons">
-                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
                             <i id="print-button" class="fa fa-print"></i>
                         </a>
                         <a href="https://github.com/liquip/docs-de" title="Git repository" aria-label="Git repository">
@@ -178,89 +178,26 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="farberkennung"><a class="header" href="#farberkennung">Farberkennung</a></h1>
-<p>Hier ist der Code für die Farberkennung(Arduino Ide):</p>
-<pre><code class="language-c">#define S0  26
-#define S1  25
-#define S2  14
-#define S3  27
-#define OUT 13
-
-#define R_LED 12
-#define G_LED 33
-#define B_LED 32
-
-int r = 0;
-int g = 0;
-int b = 0;
-
-void setup() {
-  pinMode(S0, OUTPUT);
-  pinMode(S1, OUTPUT);
-  pinMode(S2, OUTPUT);
-  pinMode(S3, OUTPUT);
-  pinMode(OUT, INPUT);
-
-  pinMode(R_LED, OUTPUT);
-  pinMode(G_LED, OUTPUT);
-  pinMode(B_LED, OUTPUT);
-
-  digitalWrite(S0, HIGH);
-  digitalWrite(S1, LOW);
-
-  Serial.begin(9600);
-}
-
-void loop() {
-  digitalWrite(S2, LOW);
-  digitalWrite(S3, LOW);
-
-  r = map(pulseIn(OUT, LOW), 25, 70, 255, 0);
-  Serial.print("R= "); Serial.print(r); Serial.print("   ");
-  delay(100);
-
-  digitalWrite(S2, HIGH);
-  digitalWrite(S3, HIGH);
-
-  g = map(pulseIn(OUT, LOW), 25, 70, 255, 0);
-  Serial.print("G= "); Serial.print(g); Serial.print("   ");
-  delay(100);
-
-  digitalWrite(S2, LOW);
-  digitalWrite(S3, HIGH);
-
-  b = map(pulseIn(OUT, LOW), 25, 70, 255, 0);
-  Serial.print("B= "); Serial.print(b); Serial.println("   ");
-  delay(100);
-
-  if (r &gt; 100 &amp;&amp; r &gt; g &amp;&amp; r &gt; b) {
-    digitalWrite(R_LED, HIGH);
-    digitalWrite(G_LED, LOW);
-    digitalWrite(B_LED, LOW);
-  } else if (g &gt; 100 &amp;&amp; g &gt; r &amp;&amp; g &gt; b) {
-    digitalWrite(R_LED, LOW);
-    digitalWrite(G_LED, HIGH);
-    digitalWrite(B_LED, LOW);
-  } else if (b &gt; 100 &amp;&amp; b &gt; r &amp;&amp; b &gt; g) {
-    digitalWrite(R_LED, LOW);
-    digitalWrite(G_LED, LOW);
-    digitalWrite(B_LED, HIGH);
-  } else {
-    digitalWrite(R_LED, LOW);
-    digitalWrite(G_LED, LOW);
-    digitalWrite(B_LED, LOW);
-  }
-}
-</code></pre>
+                        <h1 id="erkenne-einen-gefalteten-karton"><a class="header" href="#erkenne-einen-gefalteten-karton">Erkenne einen gefalteten Karton</a></h1>
+<p>Dies ist ein kleines Nebenprojekt zur Vorbereitung.</p>
+<p>Das Programm soll erkennen, ob ein Karton der in einen Container geworfen wurde, gefaltet ist oder nicht.
+Ich habe folgende Ansätze:</p>
+<ul>
+<li>Mithilfe von Lichtschranken entlang der x- und z-Achse erkennen, wie lange der Fall dauert, normale Maximalshöhe festlegen und bei Überschreitung <em>Stromschlag?</em></li>
+<li>Mithilfe von Ki (vermutlich schwer realisierbar)</li>
+</ul>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../color_detection/color_detection.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="roadmap.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
+                            <a rel="next prefetch" href="color_detection/color_detection.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <i class="fa fa-angle-right"></i>
+                            </a>
 
                         <div style="clear: both"></div>
                     </nav>
@@ -268,10 +205,13 @@ void loop() {
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../color_detection/color_detection.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="roadmap.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
+                    <a rel="next prefetch" href="color_detection/color_detection.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <i class="fa fa-angle-right"></i>
+                    </a>
             </nav>
 
         </div>
@@ -284,13 +224,13 @@ void loop() {
         </script>
 
 
-        <script src="../elasticlunr.min.js"></script>
-        <script src="../mark.min.js"></script>
-        <script src="../searcher.js"></script>
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
 
-        <script src="../clipboard.min.js"></script>
-        <script src="../highlight.js"></script>
-        <script src="../book.js"></script>
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
 
         <!-- Custom JS scripts -->
 
